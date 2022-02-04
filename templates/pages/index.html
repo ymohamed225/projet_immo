@@ -1,0 +1,211 @@
+{%extends 'base.html' %}
+{% load humanize %}
+
+{% block title %} | Location, Vente, Gestion et Conseils des Biens Immobilers {% endblock %}
+{% block content %}
+<!-- Showcase -->
+<section id="showcase">
+    <div class="container text-center">
+        <div class="home-search p-5">
+            <div class="overlay p-5">
+                <h1 class="display-3 mb-3">
+                    MasterHouse
+                </h1>
+                <h3>
+                    Trouvez votre logement en un seul clic
+                </h3>
+                <p class="lead">Avec Master House c'est la qualité, rapidité et fiabilité!</p>
+                <div class="search">
+                    <!-- Replace the URL in the form action -->
+                    <form action="{% url 'search' %}">
+                        <!-- Form Row 1 -->
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label class="sr-only">Mots clés</label>
+                                <input type="text" name="keywords" class="form-control"
+                                    placeholder="Mot-clé (Piscine, Garage, etc.)">
+                            </div>
+
+
+                            <div class="col-md-4 mb-3">
+                                <label class="sr-only">Votre Besoin</label>
+
+                                <select name="besoin" class="form-control">
+                                    <option selected="true" disabled="disabled">Votre Besoin</option>
+                                    <!-- Loop through the state choices -->
+                                    {% for key,value in besoin_choices.items %}
+                                
+                                    <option value="{{ key }}">{{ value }}</option>
+                                    {% endfor %}
+                                </select>
+                               
+                            </div>
+
+                            
+                            <div class="col-md-4 mb-3">
+                                <label class="sr-only">Type de Bien</label>
+                            
+                                <select name="bien" class="form-control">
+                                    <option selected="true" disabled="disabled">Type de Bien</option>
+                                    <!-- Loop through the state choices -->
+                                    {% for key,value in bien_choices.items %}
+                            
+                                    <option value="{{ key }}">{{ value }}</option>
+                                    {% endfor %}
+                                </select>
+                            
+                            </div>
+                        </div>
+                        <!-- Form Row 2 -->
+
+
+
+
+                        <div class="form-row">
+
+
+                            <div class="col-md-4 mb-3">
+                                <label class="sr-only">Commune</label>
+                                <select name="state" class="form-control">
+                                    <option selected="true" disabled="disabled">Communes</option>
+                                    {% for key,value in state_choices.items %}
+                            
+                                    <option value="{{ key }}">{{ value }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label class="sr-only">Chambres</label>
+                                <select name="bedrooms" class="form-control">
+                                    <option selected="true" disabled="disabled">Chambres</option>
+                                    {% for key,value in bedroom_choices.items %}
+
+                                    <option value="{{ key }}">{{ value }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <select name="price" class="form-control" id="type">
+                                    <option selected="true" disabled="disabled">Prix maximum</option>
+                                    {% for key,value in price_choices.items %}
+
+                                    <option value="{{ key }}">{{ value }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary btn-block mt-4" type="submit">Recherhe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Alerts -->
+{% include 'partials/_alerts.html' %}
+<!-- Listings -->
+<section id="listings" class="py-5">
+    <div class="container">
+        <h3 class="text-center mb-3">Dernières annonces</h3>
+        <div class="row">
+            {% if listings %}
+            {% for listing in listings %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card listing-preview">
+                    <img class="card-img-top" src="{{ listing.photo_main.url }}" alt="">
+                    <div class="card-img-overlay">
+                        <h2>
+                            <span class="badge badge-secondary text-white">{{ listing.price | intcomma }}Fcfa</span>
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="listing-heading text-center">
+                            <h4 class="text-primary">{{ listing.title }}</h4>
+                            <p>
+                                <i class="fas fa-map-marker text-secondary"></i> {{ listing.city }} {{ listing.state }},<h5>Code</h5> {{ listing.zipcode }}</p>
+                        </div>
+                        <hr>
+                        <div class="row py-2 text-secondary">
+                            <div class="col-6">
+                                <i class="fas fa-th-large"></i> Surface: {{ listing.sqft }} m²</div>
+                            <div class="col-6">
+                                <i class="fas fa-car"></i> Garage: {{ listing.garage }}</div>
+                        </div>
+                        <div class="row py-2 text-secondary">
+                            <div class="col-6">
+                                <i class="fas fa-bed"></i> Chambres: {{ listing.bedrooms }}</div>
+                            <div class="col-6">
+                                <i class="fas fa-bath"></i> Salles de bain: {{ listing.bathrooms }}</div>
+                        </div>
+                        <hr>
+                        <div class="row py-2 text-secondary">
+                            <div class="col-6">
+                                <i class="fas fa-user"></i> {{ listing.realtor }}</div>
+                        </div>
+                        <div class="row text-secondary pb-2">
+                            <div class="col-6">
+                                <i class="fas fa-clock"></i> {{ listing.list_date | timesince }}</div>
+                        </div>
+                        <hr>
+                        <a href="{% url 'listing' listing.id %}" class="btn btn-primary btn-block">Plus d'informations</a>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+            {% else %}
+            <div class="col-md-12">
+                <p>Aucune annonce disponible</p>
+            </div>
+
+            {% endif %}
+
+
+
+
+        </div>
+    </div>
+</section>
+
+<section id="services" class="py-5 bg-secondary text-white">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4">
+                    <i class="fas fa-comment fa-4x mr-4"></i>
+                <hr>
+                
+                    <h3>Services de conseils</h3>
+
+                
+            </div>
+
+
+            <div class="col-md-4">
+                <i class="fas fa-home fa-4x mr-4"></i>
+                <hr>    
+                
+                    <h3>Gestion des Biens Immobilers</h3>
+               
+                    
+                
+            </div>
+
+
+
+            <div class="col-md-4">
+                <i class="fas fa-suitcase fa-4x mr-4"></i>
+                <hr>
+
+                
+                    <h3>Location et vente</h3>
+               
+               
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
