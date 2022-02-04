@@ -10,6 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+# portfolio/settings.py
+
+# ...
+
+import django_heroku
+django_heroku.settings(locals())
+
+
 from django.contrib.messages import constants as messages
 import os
 from django.core.mail import send_mail
@@ -28,7 +36,7 @@ SECRET_KEY = "qkfw^=k$ph=04^(b*4o(dyh^4oh*2%s#q=syqcb#%x!c2r--e9"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['masterhouse20-dev.eu-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = []
 
 # Application definition
 
