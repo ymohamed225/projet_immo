@@ -13,14 +13,10 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 # portfolio/settings.py
 
 # ...
-
-import django_heroku
-django_heroku.settings(locals())
-
-
 from django.contrib.messages import constants as messages
 import os
 from django.core.mail import send_mail
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -33,25 +29,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, "www", "static")
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "qkfw^=k$ph=04^(b*4o(dyh^4oh*2%s#q=syqcb#%x!c2r--e9"
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
+DEBUG = True
 
-#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []
 
-## HEROKO
-
-STATIC_ROOT  =  os . chemin . joindre ( BASE_DIR , 'statique' )
-
-**  PS : si  Heroku  n'est pas reconnu comme une commande , veuillez fermer votre terminal et votre éditeur , puis rouvrez - le . _             
-
-DEBUG  =  Faux  # dans settings.py
-
-ALLOWED_HOSTS = ['https://whispering-escarpment-15932.herokuapp.com/',
-                 'localhost', '127.0.0.1']  # dans settings.py
-
-# FIN HEROKO
 
 # Application definition
+
 
 INSTALLED_APPS = [
     # Default Apps
