@@ -1,0 +1,1 @@
+web: gunicorn projet_immo.wsgi --log-file -
