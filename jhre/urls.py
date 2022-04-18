@@ -19,6 +19,9 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth
+#django-code
+from django.views.static import serve
+from django.conf.urls import url
 
 urlpatterns = [
     path("", include("pages.urls")),
@@ -26,6 +29,10 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("accounts.urls")),
     path("contacts/", include("contacts.urls")),
+    #django-code
+    url(r'^media/(?P<path>.*)$', serve,{'document_root':       settings.MEDIA_ROOT}), 
+    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 
+
     # ath('admin/', admin.site.urls),
     ##### user related path##########################
     # path('', include('user.urls')),
