@@ -1,1 +1,2 @@
+release: python manage.py migrate
 web: gunicorn projet_immo.wsgi --log-file -
