@@ -94,3 +94,4 @@ wcwidth==0.2.5
 Werkzeug==2.1.1
 whitenoise==6.0.0
 wrapt==1.14.0
+pywin32==303
