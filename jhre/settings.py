@@ -15,6 +15,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 # ...
 from django.contrib.messages import constants as messages
 import os
+import django_heroku
 from django.core.mail import send_mail
 
 
@@ -92,13 +93,24 @@ WSGI_APPLICATION = "jhre.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+#DATABASES = {
+    #"default": {
+       # "ENGINE": "django.db.backends.postgresql_psycopg2",
+        #"NAME": "jhre",  # le nom de la base de donnée
+        #"USER": "postgres",
+       # "PASSWORD": "root",
+       # "HOST": "localhost",
+       # "PORT": "5432",
+    #}
+#}
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "jhre",  # le nom de la base de donnée
-        "USER": "postgres",
-        "PASSWORD": "root",
-        "HOST": "localhost",
+        "NAME": "dd41pg4ji5pjca",  # le nom de la base de donnée
+        "USER": "qupqhigzvsbbzl",
+        "PASSWORD": "76804ae2d5da7b53a2ca2971f1038265b478e76c0d33739be26eac6560100899",
+        "HOST": "ec2-3-228-235-79.compute-1.amazonaws.com",
         "PORT": "5432",
     }
 }
@@ -140,7 +152,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = "/static/"
+#STATIC_URL = "/static/"  A Enlever c'est pour utiliser sans heroku
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "jhre/static")]
 
